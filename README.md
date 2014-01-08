@@ -1,7 +1,4 @@
-anchorCMS
+AnchorCMS Addons
 =========
 
 Object-oriented addons for AnchorCMS
-
-  -  a
-  -  b
