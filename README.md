@@ -43,9 +43,7 @@ Now just include the classes you need and you can start using them. They all pro
 At the moment, you can't do much more that this, still it can be very useful.
 
 ####About the *get()*
-All of the *data\\...::get()* can be called with no arguments, in which case they return all the records, or you can pass them a key-value pair, to retrieve only the records that matches. Be careful, though: you should always check if you got an array or a single record. If you want to be sure to get a single record, just use:
-
-    <?php $singleRecord = array_shift(data\get('whatever', 'whatever again')); ?>
+All of the *data\\...::get()* can be called with no arguments, in which case they return all the records, or you can pass them a key-value pair, to retrieve only the records that matches. Be careful, though: you should always check if you got an array or a single record.
         
 
 
