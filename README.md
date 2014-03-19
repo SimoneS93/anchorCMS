@@ -9,17 +9,22 @@ After including the classes you need, you can start using them. They all provide
 
     <?php
         //retrive all menu items
-        $menuItems = data\menu::get();
+        $menuItems = data\\menu::get();
         
         //retrieve all the categories
-        $categories = data\categories::get();
+        $categories = data\\categories::get();
         
         //retrieve the current category
-        $ccategory = data\categories::current();
+        $ccategory = data\\categories::current();
           //print $ccategory->name;
         
         //retrieve all posts from the current category
-        $posts = data\posts::get('category', $ccategory->id);
+        $posts = data\\posts::get('category', $ccategory->id);
+        
+        //retrieve the post with ID = 5
+        $post5 = data\\posts::get('id', 5);
+            //$post5 now holds it's custom fieds, too
+            //print $post5->a_custom_field_name;
         
     ?>
     
