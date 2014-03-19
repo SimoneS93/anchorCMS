@@ -12,7 +12,7 @@ First of all you heve to modify the file **anchor/libraries/items.php** and add 
         return $this->array;
     }
     
-Now just include the classes you need and you can start using them. They all provide a consistent interface, so are quite similar in usage. An example:
+Now just include the classes you need (the easiest way is to put them in your **themes** folder and call **theme_include('theFileYouNeed')**) and you can start using them. They all provide a consistent interface, so are quite similar in usage. An example:
 
     <?php
         //retrive all menu items
