@@ -1,0 +1,43 @@
+<?php
+
+namespace data;
+
+class menu {
+    private static $menu = array();
+    
+    
+    public static function get($key = '', $val = '') {
+        self::load();
+        
+        if (func_num_args() > 1) {
+            list($key, $val) = func_get_args();
+            return array_filter(self::$menu, function($category) use ($key, $val) {
+                return isset($category[$key]) && $category[$key] == $val;
+            });
+        }
+        
+        return self::$menu;
+    }
+    
+    private static function load() {
+        if (!self::$menu) {
+            while (menu_items()) {
+                self::$menu[] = array(
+                    'id' => menu_id(),
+                    'name' => menu_name(),
+                    'title' => menu_title(),
+                    'active' => menu_active(),
+                    'parent' => self::id(menu_parent())->get('title'),
+                    'url' => menu_url()
+                );
+            }
+        }
+    }
+    
+    public static function id($id) {
+        $page = \Page::id($id);
+        return model::make($page);
+    }
+}
+
+?>
