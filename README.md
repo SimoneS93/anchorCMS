@@ -5,7 +5,7 @@ The simple classes provided let you access your AnchorCMS data through a unified
 You can use all of the classes or just those you need (*base* and *model* are mandatory): do you only need an object-oriented approach to work with your blog posts? Just include *posts.php* and so on.
 
 ####How to use
-First of all you heve to modify the file 'anchor/libraries/items.php' and add the following at the end of the class:
+First of all you heve to modify the file **anchor/libraries/items.php** and add the following at the end of the class:
     
     /** ADDED **/
     public function toArray() {
