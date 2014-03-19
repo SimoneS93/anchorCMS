@@ -32,6 +32,11 @@ Now just include the classes you need and you can start using them. They all pro
         $post5 = data\posts::get('id', 5);
             //$post5 now holds it's custom fieds, too
             //print $post5->a_custom_field_name;
+            
+        //retrieve all posts written by 'me'
+        $postsMe = data\posts::filter(function($post) {
+            return $post->author_name === 'me';
+        });
         
     ?>
     
