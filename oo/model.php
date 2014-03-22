@@ -11,10 +11,10 @@ class model {
      * @return model
      */
     public static function make($o = NULL) {
-        if ($o instanceof \html\attributes)
+        if ($o instanceof self)
             return $o;
         
-        $attr = new \html\attributes();
+        $attr = new self();
         
         if (is_object($o) || is_array($o)) {
             if (is_object($o) && isset($o->data))
@@ -32,9 +32,8 @@ class model {
      */
     public function __construct(array $attributes = array()) {
         $this->hash = array();
-        if (is_array($attributes))
-            foreach ($attributes as $key => $val)
-                $this->set($key, $val);
+        foreach ($attributes as $key => $val)
+            $this->set($key, $val);
     }
     
     /**
