@@ -3,7 +3,7 @@
 namespace data;
 
 /**
- * Let's you work with posts
+ * Lets you work with posts
  */
 
 class posts extends base { 
@@ -38,7 +38,7 @@ class posts extends base {
             $posts = array_pop(\Post::listing(null, 1, 999));
             
             foreach ($posts as $post) {
-                $post = new \html\attributes($post->data);
+                $post = model::make($post);
                 
                 self::extend($post);
                 $post->delete('html');
