@@ -15,25 +15,32 @@ First of all you heve to modify the file **anchor/libraries/items.php** and add 
 Now just include the classes you need (the easiest way is to put them in your **themes/classes** folder and call **theme_include('classes/theFileYouNeed')**) and you can start using them. They all provide a consistent interface, so are quite similar in usage. An example:
 
     <?php
-        //retrive all menu items
+        #mandatory includes - you can put them in header.php
+        theme_include('classes/model');
+        theme_include('classes/base');
+        #include what you need
+        theme_inlcude('classes/posts');
+        ....
+        
+        #retrive all menu items
         $menuItems = data\menu::get();
         
-        //retrieve all the categories
+        #retrieve all the categories
         $categories = data\categories::get();
         
-        //retrieve the current category
+        #retrieve the current category
         $ccategory = data\categories::current();
-          //print $ccategory->name;
+          #print $ccategory->name;
         
-        //retrieve all posts from the current category
+        #retrieve all posts from the current category
         $posts = data\posts::get('category', $ccategory->id);
         
-        //retrieve the post with ID = 5
+        #retrieve the post with ID = 5
         $post5 = data\posts::get('id', 5);
-            //$post5 now holds it's custom fieds, too
-            //print $post5->a_custom_field_name;
+            #$post5 now holds it's custom fieds, too
+            #print $post5->a_custom_field_name;
             
-        //retrieve all posts written by 'me'
+        #retrieve all posts written by 'me'
         $postsMe = data\posts::filter(function($post) {
             return $post->author_name === 'me';
         });
