@@ -28,12 +28,15 @@ Now just include the classes you need (the easiest way is to put them in your **
         #retrieve all the categories
         $categories = data\categories::get();
         
+        #retrieve all the pages
+        $pages = data\pages::get();
+        
         #retrieve the current category
-        $ccategory = data\categories::current();
-          #print $ccategory->name;
+        $category = data\categories::current();
+          #print $category->name;
         
         #retrieve all posts from the current category
-        $posts = data\posts::get('category', $ccategory->id);
+        $posts = data\posts::get('category', $category->id);
         
         #retrieve the post with ID = 5
         $post5 = data\posts::get('id', 5);
