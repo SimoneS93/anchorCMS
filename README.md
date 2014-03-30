@@ -38,6 +38,9 @@ Now just include the classes you need (the easiest way is to put them in your **
         #retrieve all posts from the current category
         $posts = data\posts::get('category', $category->id);
         
+        #retrieve all posts whose category's slug is 'blog'
+        $posts = data\posts::get('category_slug', 'blog');
+        
         #retrieve the post with ID = 5
         $post5 = data\posts::get('id', 5);
             #$post5 now holds it's custom fieds, too
@@ -51,6 +54,15 @@ Now just include the classes you need (the easiest way is to put them in your **
     ?>
     
 At the moment, you can't do much more that this, still it can be very useful.
+
+####Extended model
+When you fetch your models with *get()*, you get some added attributes on your model:
+
+ - **post->category_slug**: the slug of the category the post belongs to
+ - **post->content**: the parsed markdwon content (consistent with *page*)
+ - **post->url**: the url to the post article
+ - **page->content**: same as post
+ - **page->url**: same as post
 
 ####About the *get()*
 All of the *data\\...::get()* can be called with no arguments, in which case they return all the records, or you can pass them a key-value pair, to retrieve only the records that matches. Be careful, though: you should always check if you got an array or a single record.
