@@ -60,7 +60,7 @@ When you run your queries with *get()* or *filter()*, you get an array of **MODE
 
     <?php
         #given you got $post from a query
-        $author_bio_or_default = $post->getAttr('hello-there', 'no bio found');
+        $author_bio_or_default = $post->getAttr('author_bio', 'no bio found');
            #if the author_bio is empty, the default value will be returned
     ?>
 
