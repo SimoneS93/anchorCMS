@@ -72,3 +72,5 @@ The models you get from your queries holds some bits of data regular Anchor's ob
  - **page->content**: same as post
  - **page->url**: same as post
  - **page->parent_slug**: the slug of page's parent (empty if is a top-level page)
+
+To have a list of all the attributes available, run a *first()* query and do a *var_dump()*
