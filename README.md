@@ -61,6 +61,7 @@ When you fetch your models with *get()*, you get some added attributes on your m
  - **post->category_slug**: the slug of the category the post belongs to
  - **post->content**: the parsed markdwon content (consistent with *page*)
  - **post->url**: the url to the post article
+ - **page->parent_slug**: the slug of the page's parent, if any (empty otherwise)
  - **page->content**: same as post
  - **page->url**: same as post
 
