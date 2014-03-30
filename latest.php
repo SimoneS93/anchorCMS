@@ -1,5 +1,5 @@
 <?php
-namespace oocms;
+namespace ooanchor;
 
 class model {
     private $hash;
@@ -62,7 +62,7 @@ class model {
      * @return mixed
      */
     public function getAttr($key, $default = '') {
-        return $this->exists($key)? $this->hash[$key] : $default;
+        return $this->exists($key) && $this->hash[$key]? $this->hash[$key] : $default;
     }
 
     /**
@@ -146,11 +146,23 @@ abstract class base {
         static::load();
         return filter::callback(static::records(), $callback);
     }
+    
+    /**
+     * Get only the first record
+     * @param string $key
+     * @param mixed $val
+     * @return model
+     */
+    public static function first($key = '', $val = NULL) {
+        $records = static::get($key, $val);
+        return $records? array_shift($records) : NULL;
+    }
 
     /**
      * Get records, maybe on a key-value match basis
      * @param string $key
      * @param mixed $value
+     * @param boolean $single_record wether to return a single record
      */
     public static function get($key = '', $val = NULL) {
         static::load();
