@@ -7,7 +7,7 @@ namespace data;
  */
 
 class pages extends base { 
-    private static $records;
+    private static $records = array();
 
     /**
      * Get psts based on a callback filter
@@ -35,16 +35,13 @@ class pages extends base {
      */
     protected static function load() {
         if (!self::$records) {
-            $pages = \Page::listing(null, 1, 999);
+            self::$records = \Page::listing(null, 1, 999);
             
-            foreach ($pages as $page) {
+            foreach (self::$records as &$page) {
                 $page = model::make($page);
-                
                 self::extend($page);
-                
-                self::$records[] = $page;
             } 
-        } 
+        }
     }
     
     /**
@@ -52,10 +49,19 @@ class pages extends base {
      * @param model $page
      */
     private static function extend(&$page) {
-        $page->content = parse($page->html);
+        #fetch parent page, if any
+        $page->parent_slug = '';
+        if ($page->parent) {
+            $parent = array_shift(self::get('id', $page->parent));
+            if ($parent)
+                $page->parent_slug = $parent->slug;
+        }
+        #parse markdown content
+        $page->content = parse($page->content);
+        #compute url
 	$page->url = base_url($page->slug);
         
-        //add custom fields
+        #add custom fields
         $extends = \Extend::fields('page');
         foreach ($extends as $extend) {
             $key = $extend->key;
