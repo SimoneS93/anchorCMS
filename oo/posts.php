@@ -11,8 +11,8 @@ class posts extends base {
 
     /**
      * Get psts based on a callback filter
-     * @param type $filter
-     * @return type
+     * @param callable $filter
+     * @return array
      */
     public static function filter($filter) {
         self::load();
@@ -35,15 +35,12 @@ class posts extends base {
      */
     protected static function load() {
         if (!self::$records) {
-	    #fetch from database
-            $posts = array_pop(\Post::listing(null, 1, 999));
-            #make model from each
-            foreach ($posts as $post) {
+            self::$records = array_pop(\Post::listing(null, 1, 999));
+            
+            foreach (self::$records as &$post) {
                 $post = model::make($post);
                 self::extend($post);
                 $post->delete('html');
-                #push
-                self::$records[] = $post;
             } 
         } 
     }
