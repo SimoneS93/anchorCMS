@@ -56,7 +56,7 @@ You can even apply your own filter rule:
     ?>
 
 #####About the MODEL
-When you run your queries with *get()* or *filter()*, you get an array of **MODEL**s, which is just a wrapper for an associative array with getters and setters. It's useful 'cause it's an object, so you can implement your custom behavior into it, if you want. It provides a useful **getAttr()** method which lets you specify a default value to return in case the attribute you're lookin for isn't set:
+When you run your queries with *get()* or *filter()*, you get an array of **MODEL** s, which is just a wrapper for an associative array with getters and setters. It's useful 'cause it's an object, so you can implement your custom behavior into it, if you want. It provides a useful **getAttr()** method which lets you specify a default value to return in case the attribute you're lookin for isn't set:
 
     <?php
         #given you got $post from a query
