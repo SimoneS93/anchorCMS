@@ -1,72 +1,74 @@
 AnchorCMS Addons
 =========
 
-The simple classes provided let you access your AnchorCMS data through a unified entrypoint, that is an instance of the *model* class. It's just a wrapper for an associative array, that exposes getters and setters for a more robust access to it's internals. 
-You can use all of the classes or just those you need (*base* and *model* are mandatory): do you only need an object-oriented approach to work with your blog posts? Just include *posts.php* and so on.
+Access all your AnchorCMS data throught a consistent and intuitive API, with an object-oriented approach!
 
-####How to use
-First of all you heve to modify the file **anchor/libraries/items.php** and add the following at the end of the class:
-    
-    /** ADDED **/
-    public function toArray() {
-        return $this->array;
-    }
-    
-Now just include the classes you need (the easiest way is to put them in your **themes/classes** folder and call **theme_include('classes/theFileYouNeed')**) and you can start using them. They all provide a consistent interface, so are quite similar in usage. An example:
+###Prerequisites
+ 1. Copy **ooanchor.latest.php** in your theme's folder
+ 2. In your *header.php*, write:
+
+        <?php theme_include('ooanchor.latest.php'); ?>
+
+ 3. In your *anchor/models/category.php* file, append the following:
+  
+        #after the *paginate* function
+        public static function listing() {
+            return static::where('id', '>', -1)->get();
+        }
+
+Now you're ready to see how simple it is to use.
+
+###Usage
+#####Fetch all records
+To fetch all the records you just need a line:
 
     <?php
-        #mandatory includes - you can put them in header.php
-        theme_include('classes/model');
-        theme_include('classes/base');
-        #include what you need
-        theme_inlcude('classes/posts');
-        ....
-        
-        #retrive all menu items
-        $menuItems = data\menu::get();
-        
-        #retrieve all the categories
-        $categories = data\categories::get();
-        
-        #retrieve all the pages
-        $pages = data\pages::get();
-        
-        #retrieve the current category
-        $category = data\categories::current();
-          #print $category->name;
-        
-        #retrieve all posts from the current category
-        $posts = data\posts::get('category', $category->id);
-        
-        #retrieve all posts whose category's slug is 'blog'
-        $posts = data\posts::get('category_slug', 'blog');
-        
-        #retrieve the post with ID = 5
-        $post5 = data\posts::get('id', 5);
-            #$post5 now holds it's custom fieds, too
-            #print $post5->a_custom_field_name;
-            
-        #retrieve all posts written by 'me'
-        $postsMe = data\posts::filter(function($post) {
-            return $post->author_name === 'me';
-        });
-        
+        #fetch all the categories
+        $categories = ooanchor\categories::get();
+        #fetch all the posts
+        $posts = ooanchor\posts::get();
+        #fetch all the pages
+        $pages = ooanchor\pages::get();
     ?>
-    
-At the moment, you can't do much more that this, still it can be very useful.
 
-####Extended model
-When you fetch your models with *get()*, you get some added attributes on your model:
+#####Fetch records by a key-value match
+Want to fetch only the records that match a key-value pair? Easy as:
 
- - **post->category_slug**: the slug of the category the post belongs to
- - **post->content**: the parsed markdwon content (consistent with *page*)
- - **post->url**: the url to the post article
- - **page->parent_slug**: the slug of the page's parent, if any (empty otherwise)
+    <?php $posts_that_match = ooanchor\posts::get('your-key-here', 'your-value-here'); ?>
+
+**NOTE**: if you're searching by a numeric value, you have to cast it to string, e.g:
+
+    <?php $posts_with_id_5 = ooanchor\posts::get('id', '5'); ?>
+
+#####Fetch a single record by a key-value match
+You just need a single record? 
+
+    <?php $first_by_admin = ooanchor\posts::first('author_name', 'admin'); ?>
+
+#####Fetch custom records
+You can even apply your own filter rule:
+
+    <?php
+        #get all the pages whose content contains 'hello'
+        $custom_filtered_pages = ooanchor\pages::filter(function($page) {
+            return strpos($page->content, 'hello') !== FALSE;
+        }
+    ?>
+
+#####About the MODEL
+When you run your queries with *get()* or *filter()*, you get an array of **MODEL**s, which is just a wrapper for an associative array with getters and setters. It's useful 'cause it's an object, so you can implement your custom behavior into it, if you want. It provides a useful **getAttr()** method which lets you specify a default value to return in case the attribute you're lookin for isn't set:
+
+    <?php
+        #given you got $post from a query
+        $author_bio_or_default = $post->getAttr('hello-there', 'no bio found');
+           #if the author_bio is empty, the default value will be returned
+    ?>
+
+#####Extended models
+The models you get from your queries holds some bits of data regular Anchor's objects don't have:
+ - **post->content**: the parsed content of your post
+ - **post->url**: the url
+ - **post->category_slug**: the slug of category the post belongs to
  - **page->content**: same as post
  - **page->url**: same as post
-
-####About the *get()*
-All of the *data\\...::get()* can be called with no arguments, in which case they return all the records, or you can pass them a key-value pair, to retrieve only the records that matches. Be careful, though: you should always check if you got an array or a single record.
-        
-
-
+ - **page->parent_slug**: the slug of page's parent (empty if is a top-level page)
