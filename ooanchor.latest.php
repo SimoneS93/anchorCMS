@@ -150,10 +150,9 @@ abstract class base {
     }
 
     /**
-     * Get records, maybe on a key-value match basis
+     * Get records by key-value match, key existence or custom callback
      * @param string $key
      * @param mixed $value
-     * @param boolean $single_record wether to return a single record
      */
     public static function get($key = '', $val = NULL) {
         static::load();
@@ -259,7 +258,7 @@ class posts extends page_post {
                 #parse markdwn
                 $post->content = parse($post->html);
                 #fetch category
-                $category = array_shift(categories::get('id', $post->category));
+                $category = categories::first('id', $post->category);
                 $post->category_slug = $category->slug;
                 #compute url
                 $post->url = base_url($posts_page->slug . '/' . $post->slug);
@@ -290,7 +289,7 @@ class pages extends page_post {
         $pages = static::get('show_in_menu', '1');
         #get only pages with no parent
         if ($root)
-            $pages = filter::keyval ($pages, 'parent', '0');
+            $pages = filter::keyval($pages, 'parent', '0');
         return $pages;
     }
 
@@ -308,7 +307,7 @@ class pages extends page_post {
                 #fetch parent page, if any
                 $page->parent_slug = '';
                 if ($page->parent) {
-                    $parent = array_shift(static::get('id', $page->parent));
+                    $parent = static::first('id', $page->parent);
                     if ($parent)
                         $page->parent_slug = $parent->slug;
                 }
