@@ -137,16 +137,7 @@ class filter {
     }
 }
 
-abstract class base {
-    /**
-     * Get records on a filter callback basis
-     * @param callable $callback
-     */
-    public static function filter($callback) {
-        static::load();
-        return filter::callback(static::records(), $callback);
-    }
-    
+abstract class base {    
     /**
      * Get only the first record
      * @param string $key
@@ -166,7 +157,9 @@ abstract class base {
      */
     public static function get($key = '', $val = NULL) {
         static::load();
-        return filter::keyval(static::records(), $key, $val);
+        return is_callable($key)?
+            filter::callback(static::records(), $key) :
+            filter::keyval(static::records(), $key, (string)$val);
     }
     
     /**
@@ -331,5 +324,3 @@ class pages extends page_post {
         return static::$records;
     }    
 }
-
-?>
