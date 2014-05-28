@@ -12,6 +12,10 @@ Access all your AnchorCMS data throught a consistent and intuitive API, with an 
  3. In your *anchor/models/category.php* file, append the following:
   
         #after the *paginate* function
+        public static function id($id) {
+            return static::where('id', '=', $id)->fetch();
+	       }
+
         public static function listing() {
             return static::where('id', '>', -1)->get();
         }
