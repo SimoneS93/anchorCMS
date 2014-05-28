@@ -51,10 +51,6 @@ Want to fetch only the records that match a key-value pair? Easy as:
 
     <?php $posts_that_match = ooanchor\posts::get('your-key-here', 'your-value-here'); ?>
 
-**NOTE**: if you're searching by a numeric value, you have to cast it to string, e.g:
-
-    <?php $posts_with_id_5 = ooanchor\posts::get('id', '5'); ?>
-
 #####Fetch a single record by a key-value match
 You just need a single record? 
 
