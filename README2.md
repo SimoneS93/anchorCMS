@@ -1,6 +1,6 @@
 #Anchor CMS addons
 
-Access Anchor's data throught a simple, consistent, object-oriented interface.
+Access Anchor's data throught an simple, consistent, object-oriented interface.
 
 ###API
 The script exposes 4 methods you can use to access your data:
@@ -24,9 +24,11 @@ All of them allow the following actions:
  - **isHomepage()**: returns true if current page is homepage
  - **isPostspage()**: returns true if current page is posts page
 
-**NOTE**: *filter()*, *first()* and *sort()* allow you to pass a custom callback to do filtering/sorting.
+**NOTE 1**: you get some interesting attributes in your objects you should check via a *var_dump()*
 
-**NOTE**: the collections you get from *A()*, *C()*, *P()* and *U()* implements the *Countable* and *Iterator* interface: this lets you use them as arrays (see examples).
+**NOTE 2**: *filter()*, *first()* and *sort()* allow you to pass a custom callback to do filtering/sorting.
+
+**NOTE 3**: the collections you get from *A()*, *C()*, *P()* and *U()* implements the *Countable* and *Iterator* interface: this lets you use them as arrays (see examples).
 
 
 ###Usage
