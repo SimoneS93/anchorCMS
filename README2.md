@@ -2,6 +2,11 @@
 
 Access Anchor's data throught an simple, consistent, object-oriented interface.
 
+###Install
+Paste **oo.php** in your theme's folder and in **header.php** add the following at line 1:
+
+    <?php theme_include('oo'); ?>
+
 ###API
 The script exposes 4 methods you can use to access your data:
 
